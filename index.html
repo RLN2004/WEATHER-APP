@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WEATHER APP</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333; /* Dark background color */
+      color: #fff; /* Text color */
+      margin: 0;
+      padding: 0;
+    }
+
+     .location input[type="text"] {
+      padding: 5px;
+      border: 1px solid #444; /* Dark border color */
+      background-color: #222; /* Dark background color */
+      color: #fff; /* Text color */
+      border-radius: 5px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 100px; /* Adjust as needed for centering */
+    }
+
+    .location {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .location h2 {
+      margin-right: 10px;
+    }
+
+    .location input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .location button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+    }
+
+    .weather {
+      margin-top: 40px;
+    }
+
+    .weather h2 {
+      margin-bottom: 10px;
+    }
+
+    #weather-data {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #444; /* Darker background for weather data */
+    }
+
+    .con{
+      margin-top: 10%;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="con">
+  <h1>WEATHER APP</h1>
+  <div class="container">
+    <div class="location">
+      <h2>LOCATION</h2>
+      <input type="text" id="location-input">
+      <button id="search-button">SEARCH</button>
+    </div>
+    <div class="weather">
+      <h2>CURRENT WEATHER</h2>
+      <div id="weather-data"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  const searchButton = document.getElementById("search-button");
+  const locationInput = document.getElementById("location-input");
+  const weatherData = document.getElementById("weather-data");
+
+  searchButton.addEventListener("click", function() {
+    const location = locationInput.value;
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=0f163181d341145088ccba94ee94e5a0&units=metric`)
+      .then(response => response.json())
+      .then(data => {
+        const temperature = data.main.temp;
+        const description = data.weather[0].description;
+        weatherData.innerHTML = `TEMPERATURE : ${temperature} &#8451;<br>WEATHER : ${description}`;
+      })
+      .catch(error => {
+        console.error(error);
+        weatherData.innerHTML = "AN ERROR OCCURED CHECK THE CITY NAME";
+      });
+  });
+
+</script>
+</body>
+</html>
